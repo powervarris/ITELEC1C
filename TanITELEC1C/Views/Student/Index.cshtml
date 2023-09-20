@@ -1,0 +1,51 @@
+﻿<table class="table table-dark">
+
+    <tr>
+        <th colspan="6">Student</th>
+    </tr>
+
+    <tr>
+        <td>Name</td>
+        <td>Course</td>
+        <td>Date Enrolled</td>
+        <td>Email</td>
+        <td>Show Details</td>
+        <td>Update</td>
+
+
+    </tr>
+
+    <div class="text-align: center;">
+
+        <a class="button" style="background-color: #4CAF50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;" 
+        asp-action="AddStudent">Enter a Student
+
+</a>
+
+    </div>
+
+    @foreach (var student in Model)
+    {
+        <tr>
+            <td>@student.FirstName @student.LastName</td>
+            <td>@student.Course</td>
+            <td>@student.dateEnrolled</td>
+            <td>@student.Email</td>
+            <td><a asp-action="ShowDetail" asp-route-id="@student.Id" class="btn btn-primary">Show Details</a></td>
+            <td><a asp-action="UpdateStudent" asp-route-id="@student.Id" class="btn btn-primary">Update Details</a></td>
+
+
+        </tr>
+
+    }
+
+</table>

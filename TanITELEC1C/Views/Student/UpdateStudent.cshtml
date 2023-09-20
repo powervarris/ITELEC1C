@@ -1,0 +1,75 @@
+﻿@model Student;
+
+<body>
+<div class="main-container">
+
+    <h2 id="HDR" style="font-size: 40px; color #d17724; font-weight: lighter; text-align: center;">Student Update</h2>
+    <div class="container">
+            <div style="text-align:center">
+
+               Update a student
+
+            </div>
+            <form asp-action="UpdateStudent" asp-controller="Student" method="post">
+
+                <div class="form-group">
+
+                    <label asp-for="Id">Student ID</label>
+                    <input asp-for="Id" class="form-control" id="Id" placeholder="Enter Student ID"/>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="FirstName">FirstName</label>
+                    <input asp-for="FirstName" class="form-control" id="FirstName" placeholder="Enter Student First Name" />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="LastName">LastName</label>
+                    <input asp-for="LastName" class="form-control" id="LastName" placeholder="Enter Student Last Name" />
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="Course">Course</label>
+                    <select asp-for="Course" asp-items="@Html.GetEnumSelectList(typeof(Course))" class="form-control" id="Course" placeholder="Enter your course"> </select>
+                    
+
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="dateEnrolled">Date Enrolled</label>
+                    <input asp-for="dateEnrolled" class="form-control" id="dateEnrolled"/>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label asp-for="Email">Email</label>
+                    <input asp-for="Email" class="form-control" id="Email" placeholder="Enter your Email" />
+
+                </div>
+                <br />
+
+                <div style="text-align: center;">       
+
+                    <button type="submit" class="btn btn-primary">Save</button>
+
+                    <button type="button" onclick="history.back();" class="btn btn-primary">Back</button>
+
+                </div>
+
+
+
+            </form>
+
+    </div>
+
+</div>
+</body>
