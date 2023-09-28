@@ -3,40 +3,40 @@
 <body>
     <div class="main-container">
 
-        <h2 id="HDR" style="font-size: 40px; color: #d17724; font-weight: lighter; text-align: center;">Instructor Update</h2>
+        <h2 id="HDR" style="font-size: 40px; color: #d17724; font-weight: lighter; text-align: center;">Delete an Instructor</h2>
         <div class="container">
             <div style="text-align:center">
 
-                Update an Instructor
+                Are you sure you want to delete this instructor?
 
             </div>
-            <form asp-action="UpdateInstructor" asp-controller="Instructor" method="post">
+            <form asp-action="DeleteInstructor" asp-controller="Instructor" method="post">
 
                 <div class="form-group">
 
                     <label asp-for="Id">Instructor ID</label>
-                    <input asp-for="Id" class="form-control" id="Id" placeholder="Enter Instructor ID" />
+                    <input asp-for="Id" class="form-control" id="Id" placeholder="Enter Instructor ID" readonly />
 
                 </div>
 
                 <div class="form-group">
 
                     <label asp-for="FirstName">FirstName</label>
-                    <input asp-for="FirstName" class="form-control" id="FirstName" placeholder="Enter Instructor First Name" />
+                    <input asp-for="FirstName" class="form-control" id="FirstName" placeholder="Enter Instructor First Name" readonly />
 
                 </div>
 
                 <div class="form-group">
 
                     <label asp-for="LastName">LastName</label>
-                    <input asp-for="LastName" class="form-control" id="LastName" placeholder="Enter Instructor Last Name" />
+                    <input asp-for="LastName" class="form-control" id="LastName" placeholder="Enter Instructor Last Name" readonly />
 
                 </div>
 
                 <div class="form-group">
 
                     <label asp-for="Rank">Rank</label>
-                    <select asp-for="Rank" asp-items="@Html.GetEnumSelectList(typeof(Rank))" class="form-control" id="Course" placeholder="Enter your course"> </select>
+                    <select asp-for="Rank" asp-items="@Html.GetEnumSelectList(typeof(Rank))" class="form-control" id="Course" placeholder="Enter your course" disabled> </select>
 
 
 
@@ -45,7 +45,7 @@
                 <div class="form-group">
 
                     <label asp-for="Status">Status</label>
-                    <select asp-for="Rank" asp-items="@Html.GetEnumSelectList(typeof(Status))" class="form-control" id="Course" placeholder="Enter your course"> </select>
+                    <select asp-for="Rank" asp-items="@Html.GetEnumSelectList(typeof(Status))" class="form-control" id="Course" placeholder="Enter your course" disabled> </select>
 
                 </div>
 
@@ -53,7 +53,7 @@
                 <div class="form-group">
 
                     <label asp-for="HiringDate">Hiring Date</label>
-                    <input asp-for="HiringDate" class="form-control" id="Email" placeholder="Enter your Email" />
+                    <input asp-for="HiringDate" class="form-control" id="Email" placeholder="Enter your Email" readonly />
 
                 </div>
                 <br />
@@ -62,7 +62,7 @@
 
                     <button type="submit" class="btn btn-primary">
 
-                        Submit
+                        Delete
 
                     </button>
 

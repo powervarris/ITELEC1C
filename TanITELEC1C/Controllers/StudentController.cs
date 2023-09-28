@@ -1,36 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using TanITELEC1C.Models;
+using TanITELEC1C.Services;
 
 namespace TanITELEC1C.Controllers
 {
     public class StudentController : Controller
     {
-        List<Student> StudentList = new List<Student>
-        {
-            new Student()
-            {
-                Id= 1,FirstName = "John Paolo",LastName = "Tan", Course = Course.IT , dateEnrolled = DateTime.Parse("24/07/2021"), Email = "johnpaolo.tan.cics@ust.edu.ph"
+        private readonly IMyFakeDataService _dummyData;
 
-            },
-            new Student()
-            {
-                Id= 2,FirstName = "Ryan",LastName = "Dy", Course = Course.CS , dateEnrolled = DateTime.Parse("24/07/2021"), Email = "ryan.dy.cics@ust.edu.ph"
-            },
-            new Student()
-            {
-                Id= 3,FirstName = "Herald",LastName = "Oliveros", Course = Course.IS, dateEnrolled = DateTime.Parse("24/07/2021"), Email = "herald.oliveros.cics@ust.edu.ph"
-            }
-        };
+        public StudentController(IMyFakeDataService dummyData)
+        {
+
+            _dummyData = dummyData;
+
+        }
+
         public IActionResult Index()
         {
 
-            return View(StudentList);
+            return View(_dummyData.StudentList);
         }
 
         public IActionResult ShowDetail(int id)
         {
             //Search for the student whose id matches the given id
-            Student? student = StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -47,48 +41,77 @@ namespace TanITELEC1C.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddStudent(Student newstudent) {
-        
-        StudentList.Add(newstudent);
-            return View("Index", StudentList);
-        
+        public IActionResult AddStudent(Student newstudent)
+        {
+
+            _dummyData.StudentList.Add(newstudent);
+            return RedirectToAction("Index");
+
         }
 
         [HttpGet]
-        public IActionResult UpdateStudent(int id) {
+        public IActionResult UpdateStudent(int id)
+        {
 
-            Student? student = StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
 
             return NotFound();
-        
+
         }
 
         [HttpPost]
-        public IActionResult UpdateStudent(Student studentChanges) {
+        public IActionResult UpdateStudent(Student studentChanges)
+        {
 
-            Student? student = StudentList.FirstOrDefault(st => st.Id == studentChanges.Id);
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == studentChanges.Id);
 
-            if (student != null) { 
-            
+            if (student != null)
+            {
+
                 student.FirstName = studentChanges.FirstName;
                 student.LastName = studentChanges.LastName;
                 student.Course = studentChanges.Course;
                 student.Email = studentChanges.Email;
                 student.dateEnrolled = studentChanges.dateEnrolled;
-            
+
             }
 
-            return View("Index", StudentList);
+            return RedirectToAction("Index");
 
         }
 
-        
+        [HttpGet]
+        public IActionResult DeleteStudent(int id)
+        {
+
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == id);
+
+            if (student != null)//was an student found?
+                return View(student);
+
+            return NotFound();
+
+        }
+
+        [HttpPost]
+        public IActionResult DeleteStudent(Student removeStudent)
+        {
+
+            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == removeStudent.Id);
+
+            if (student != null)//was an student found?
+                _dummyData.StudentList.Remove(student);
+            return RedirectToAction("Index");
+
+        }
+
+
 
 
 
     }
-    
+
 }

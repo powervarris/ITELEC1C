@@ -1,7 +1,10 @@
+using TanITELEC1C.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddSingleton<IMyFakeDataService, MyFakeDateService>();
 
 var app = builder.Build();
 
