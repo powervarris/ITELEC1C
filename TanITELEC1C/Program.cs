@@ -1,10 +1,15 @@
-using TanITELEC1C.Services;
+using Microsoft.EntityFrameworkCore;
+using TanITELEC1C.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-builder.Services.AddSingleton<IMyFakeDataService, MyFakeDateService>();
+//builder.Services.AddSingleton<IMyFakeDataService, MyFakeDateService>();
+
+builder.Services.AddDbContext<AppDbContext>(
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
+    );
 
 var app = builder.Build();
 
@@ -13,7 +18,12 @@ if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
 }
+
 app.UseStaticFiles();
+
+var context = app.Services.CreateScope().ServiceProvider.GetRequiredService<AppDbContext>();
+context.Database.EnsureCreated();
+//context.Database.EnsureDeleted();
 
 app.UseRouting();
 

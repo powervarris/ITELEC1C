@@ -1,30 +1,30 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TanITELEC1C.Data;
 using TanITELEC1C.Models;
-using TanITELEC1C.Services;
 
 namespace TanITELEC1C.Controllers
 {
     public class StudentController : Controller
     {
-        private readonly IMyFakeDataService _dummyData;
+        private readonly AppDbContext _dbData;
 
-        public StudentController(IMyFakeDataService dummyData)
+        public StudentController(AppDbContext dbData)
         {
 
-            _dummyData = dummyData;
+            _dbData = dbData;
 
         }
 
         public IActionResult Index()
         {
 
-            return View(_dummyData.StudentList);
+            return View(_dbData.Students);
         }
 
         public IActionResult ShowDetail(int id)
         {
             //Search for the student whose id matches the given id
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -44,7 +44,8 @@ namespace TanITELEC1C.Controllers
         public IActionResult AddStudent(Student newstudent)
         {
 
-            _dummyData.StudentList.Add(newstudent);
+            _dbData.Students.Add(newstudent);
+            _dbData.SaveChanges();
             return RedirectToAction("Index");
 
         }
@@ -53,7 +54,7 @@ namespace TanITELEC1C.Controllers
         public IActionResult UpdateStudent(int id)
         {
 
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -66,7 +67,7 @@ namespace TanITELEC1C.Controllers
         public IActionResult UpdateStudent(Student studentChanges)
         {
 
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == studentChanges.Id);
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == studentChanges.Id);
 
             if (student != null)
             {
@@ -76,6 +77,7 @@ namespace TanITELEC1C.Controllers
                 student.Course = studentChanges.Course;
                 student.Email = studentChanges.Email;
                 student.dateEnrolled = studentChanges.dateEnrolled;
+                _dbData.SaveChanges();
 
             }
 
@@ -87,7 +89,7 @@ namespace TanITELEC1C.Controllers
         public IActionResult DeleteStudent(int id)
         {
 
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == id);
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == id);
 
             if (student != null)//was an student found?
                 return View(student);
@@ -100,10 +102,11 @@ namespace TanITELEC1C.Controllers
         public IActionResult DeleteStudent(Student removeStudent)
         {
 
-            Student? student = _dummyData.StudentList.FirstOrDefault(st => st.Id == removeStudent.Id);
+            Student? student = _dbData.Students.FirstOrDefault(st => st.Id == removeStudent.Id);
 
             if (student != null)//was an student found?
-                _dummyData.StudentList.Remove(student);
+                _dbData.Students.Remove(student);
+                _dbData.SaveChanges();
             return RedirectToAction("Index");
 
         }

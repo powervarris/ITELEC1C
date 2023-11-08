@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using TanITELEC1C.Data;
 using TanITELEC1C.Models;
-using TanITELEC1C.Services;
 
 namespace TanITELEC1C.Controllers
 {
     public class InstructorController : Controller
     {
-        private readonly IMyFakeDataService _dummyDatas;
+        private readonly AppDbContext _dbDatas;
 
-        public InstructorController(IMyFakeDataService dummyDatas)
+        public InstructorController(AppDbContext dbDatas)
         {
 
-            _dummyDatas = dummyDatas;
+            _dbDatas = dbDatas;
 
         }
 
@@ -19,12 +19,12 @@ namespace TanITELEC1C.Controllers
         public IActionResult Index()
         {
 
-            return View(_dummyDatas.InstructorList);
+            return View(_dbDatas.Instructors);
         }
 
         public IActionResult ShowDetail(int id)
         {
-            Instructor? instructor = _dummyDatas.InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _dbDatas.Instructors.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)
                 return View(instructor);
@@ -44,7 +44,16 @@ namespace TanITELEC1C.Controllers
         public IActionResult AddInstructor(Instructor newinstructor)
         {
 
-            _dummyDatas.InstructorList.Add(newinstructor);
+            if (!ModelState.IsValid)
+            {
+                return View();
+                _dbDatas.Instructors.Add(newinstructor);
+                return RedirectToAction("Index");
+
+            }
+
+            _dbDatas.Instructors.Add(newinstructor);
+            _dbDatas.SaveChanges();
             return RedirectToAction("Index");
 
         }
@@ -53,7 +62,7 @@ namespace TanITELEC1C.Controllers
         public IActionResult UpdateInstructor(int id)
         {
 
-            Instructor? instructor = _dummyDatas.InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _dbDatas.Instructors.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)
 
@@ -67,7 +76,7 @@ namespace TanITELEC1C.Controllers
         public IActionResult UpdateInstructor(Instructor instructorChanges)
         {
 
-            Instructor? instructor = _dummyDatas.InstructorList.FirstOrDefault(st => st.Id == instructorChanges.Id);
+            Instructor? instructor = _dbDatas.Instructors.FirstOrDefault(st => st.Id == instructorChanges.Id);
             if (instructor != null)
             {
 
@@ -76,6 +85,7 @@ namespace TanITELEC1C.Controllers
                 instructor.Rank = instructorChanges.Rank;
                 instructor.HiringDate = instructorChanges.HiringDate;
                 instructor.IsTenured = instructorChanges.IsTenured;
+                _dbDatas.SaveChanges();
 
             }
 
@@ -87,7 +97,7 @@ namespace TanITELEC1C.Controllers
         public IActionResult DeleteInstructor(int id)
         {
 
-            Instructor? instructor = _dummyDatas.InstructorList.FirstOrDefault(st => st.Id == id);
+            Instructor? instructor = _dbDatas.Instructors.FirstOrDefault(st => st.Id == id);
 
             if (instructor != null)//was an student found?
                 return View(instructor);
@@ -100,10 +110,11 @@ namespace TanITELEC1C.Controllers
         public IActionResult DeleteInstructor(Student removeInstructor)
         {
 
-            Instructor? instructor = _dummyDatas.InstructorList.FirstOrDefault(st => st.Id == removeInstructor.Id);
+            Instructor? instructor = _dbDatas.Instructors.FirstOrDefault(st => st.Id == removeInstructor.Id);
 
             if (instructor != null)//was an student found?
-                _dummyDatas.InstructorList.Remove(instructor);
+                _dbDatas.Instructors.Remove(instructor);
+                _dbDatas.SaveChanges();
             return RedirectToAction("Index");
 
         }
