@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using TanITELEC1C.Data;
 using TanITELEC1C.Models;
 
@@ -15,6 +16,7 @@ namespace TanITELEC1C.Controllers
 
         }
 
+        [Authorize]
         public IActionResult Index()
         {
 
