@@ -1,14 +1,12 @@
-﻿namespace TanITELEC1C.Data
+﻿using Microsoft.AspNetCore.Identity;
+
+namespace TanITELEC1C.Data
 {
-    public class users : IdentifyUser
+    public class users : IdentityUser
 
     {
-        public string? Username { get; set; } 
         public string? firstName {  get; set; }
         public string? lastName { get; set; }
-        public string? Email { get; set; }
-
-        public string? PhoneNumber {  get; set; }
 
     }
 }

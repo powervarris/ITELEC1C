@@ -46,9 +46,10 @@ namespace TanITELEC1C.Controllers
 
             if (!ModelState.IsValid)
             {
-                return View();
+                return View(newinstructor);
+                /**return View();
                 _dbDatas.Instructors.Add(newinstructor);
-                return RedirectToAction("Index");
+                return RedirectToAction("Index");**/
 
             }
 

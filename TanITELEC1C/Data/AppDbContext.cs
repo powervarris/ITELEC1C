@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using TanITELEC1C.Models;
 
 namespace TanITELEC1C.Data
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<users>
     {
 
         public DbSet<Student> Students { get; set; }

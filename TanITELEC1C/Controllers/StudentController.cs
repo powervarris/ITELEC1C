@@ -19,7 +19,7 @@ namespace TanITELEC1C.Controllers
         [Authorize]
         public IActionResult Index()
         {
-
+            
             return View(_dbData.Students);
         }
 

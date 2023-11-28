@@ -13,7 +13,16 @@ builder.Services.AddDbContext<AppDbContext>(
     );
 
 
-builder.Services.AddIdentity<users, IdentityRole>
+builder.Services.AddIdentity<users, IdentityRole>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequiredLength = 8;
+    options.User.RequireUniqueEmail = true;
+}).AddEntityFrameworkStores<AppDbContext>();
 
 var app = builder.Build();
 

@@ -6,12 +6,12 @@ namespace TanITELEC1C.ViewModels
     {
 
         //Username
-        [Display(Name = "User Name")]
-        [Required(ErrorMessage ="Please enter your user name")]
+        [Display(Name = "Username")]
+        [Required(ErrorMessage ="Please enter your username")]
         public string? Username { get; set; }
 
         //Password
-        [Display(Name ="Password")]
+        [Display(Name = "Password")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage ="Please enter your password")]
         public string? Password { get; set; }

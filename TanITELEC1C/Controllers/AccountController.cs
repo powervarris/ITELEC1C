@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TanITELEC1C.ViewModels;
 using TanITELEC1C.Data;
+using System.Diagnostics;
 
 namespace TanITELEC1C.Controllers
 {
@@ -17,10 +18,7 @@ namespace TanITELEC1C.Controllers
             _userManager = userManager;
         }
 
-        public AccountController(SignInManager<users> signInManager)
-        {
-            _signInManager = signInManager;
-        }
+        
         [HttpGet]
         public IActionResult Login()
         {
@@ -37,7 +35,7 @@ namespace TanITELEC1C.Controllers
             {
 
                 return RedirectToAction("Index", "Instructor");
-
+                
             }
 
             else
@@ -71,11 +69,10 @@ namespace TanITELEC1C.Controllers
         public async Task<IActionResult> Register(RegisterViewModel userEnteredData)
         {
 
-            if(ModelState.IsValid)
-            {
-
+            
+                
                 users newUser = new users();
-                newUser.Username = userEnteredData.Username;
+                newUser.UserName = userEnteredData.Username;
                 newUser.firstName = userEnteredData.FirstName;
                 newUser.lastName = userEnteredData.LastName;
                 newUser.Email = userEnteredData.Email;
@@ -85,7 +82,7 @@ namespace TanITELEC1C.Controllers
 
                 if(result.Succeeded)
                 {
-
+                    
                     return RedirectToAction("Index", "Instructor");
 
                 }
@@ -94,14 +91,14 @@ namespace TanITELEC1C.Controllers
                 {
 
                     foreach (var error in result.Errors) {
-                    
+                        
                         ModelState.AddModelError("", error.Description);
                     
                     }
-
+                    
                 }
-
-            }
+                
+            
 
             return View(userEnteredData);
 
