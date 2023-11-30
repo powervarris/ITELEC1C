@@ -8,12 +8,13 @@ namespace TanITELEC1C.Controllers
     public class InstructorController : Controller
     {
         private readonly AppDbContext _dbDatas;
+        private readonly IWebHostEnvironment _environment;
 
-        public InstructorController(AppDbContext dbDatas)
+        public InstructorController(AppDbContext dbDatas, IWebHostEnvironment environment)
         {
 
             _dbDatas = dbDatas;
-
+            _environment = environment;
         }
 
         [Authorize]
@@ -43,6 +44,16 @@ namespace TanITELEC1C.Controllers
         [HttpPost]
         public IActionResult AddInstructor(Instructor newinstructor)
         {
+
+            string folder = "instructors/images/";
+            string serverFolder = Path.Combine(_environment.WebRootPath, folder);
+            string uniqueFileName = Guid.NewGuid().ToString() + "_" + newinstructor.UploadPhoto.FileName;
+            string filePath = Path.Combine(serverFolder, uniqueFileName);
+            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                newinstructor.UploadPhoto.CopyTo(fileStream);
+            }
+            newinstructor.imagePath = folder + uniqueFileName;
 
             if (!ModelState.IsValid)
             {

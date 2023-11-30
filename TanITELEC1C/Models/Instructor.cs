@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TanITELEC1C.Models
 {
@@ -60,6 +61,14 @@ namespace TanITELEC1C.Models
         /**[RegularExpression("[0-9]{4} - [0-9]{3} - [0-9]{4}", ErrorMessage = "You must follow this format 0000-000-0000")]**/
         [Display(Name = "Phone Number")]
         public string? phone { get; set; }
+
+        /**[Display(Name = "Profile Picture")]
+        public byte[]? StudentProfilePhoto { get; set; }**/
+
+        [NotMapped]
+        public IFormFile? UploadPhoto { get; set; }
+        [Display(Name = "Profile Picture")]
+        public string? imagePath { get; set; }
         
 
     }

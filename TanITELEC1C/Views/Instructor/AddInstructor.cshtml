@@ -10,7 +10,14 @@
                 Add a new Instructor
 
             </div>
-            <form asp-action="AddInstructor" asp-controller="Instructor" method="post">
+            <form asp-action="AddInstructor" asp-controller="Instructor" method="post" enctype="multipart/form-data">
+
+                <div class="form-group">
+
+                    <label asp-for="UploadPhoto"></label>
+                    <input class="form-control" asp-for="UploadPhoto" />
+
+                </div>
 
                 <div class="form-group">
 

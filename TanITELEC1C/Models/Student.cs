@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace TanITELEC1C.Models
 {
@@ -35,6 +36,14 @@ namespace TanITELEC1C.Models
         [Required(ErrorMessage = "Please Enter your Email")]
         [Display(Name = "Email")]
         public string Email { get; set; }
+
+        /**[Display(Name = "Profile Picture")]
+        public byte[]? StudentProfilePhoto { get; set; }**/
+
+        [NotMapped]
+        public IFormFile? UploadPhoto { get; set; }
+        [Display(Name="Profile Picture")]
+        public string? imagePath { get; set; }
 
 
     }

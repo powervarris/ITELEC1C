@@ -8,12 +8,13 @@ namespace TanITELEC1C.Controllers
     public class StudentController : Controller
     {
         private readonly AppDbContext _dbData;
+        private readonly IWebHostEnvironment _environment;
 
-        public StudentController(AppDbContext dbData)
+        public StudentController(AppDbContext dbData, IWebHostEnvironment environment)
         {
 
             _dbData = dbData;
-
+            _environment = environment;
         }
 
         [Authorize]
@@ -27,8 +28,17 @@ namespace TanITELEC1C.Controllers
         {
             //Search for the student whose id matches the given id
             Student? student = _dbData.Students.FirstOrDefault(st => st.Id == id);
-
-            if (student != null)//was an student found?
+            /**
+            if (student != null)
+            { //was an student found?
+                if (student.StudentProfilePhoto != null)
+                {
+                    string imageBase64Data = Convert.ToBase64String(student.StudentProfilePhoto);
+                    string imageDataURL = string.Format("data:image/jpg;base64,{0}", imageBase64Data);
+                    ViewBag.StudentProfilePhoto = imageDataURL;
+                }
+            }
+            **/
                 return View(student);
 
             return NotFound();
@@ -45,6 +55,27 @@ namespace TanITELEC1C.Controllers
         [HttpPost]
         public IActionResult AddStudent(Student newstudent)
         {
+
+            string folder = "students/images/";
+            string serverFolder = Path.Combine(_environment.WebRootPath, folder);
+            string uniqueFileName = Guid.NewGuid().ToString() + "_" + newstudent.UploadPhoto.FileName;
+            string filePath = Path.Combine(serverFolder, uniqueFileName);
+            using(var fileStream = new FileStream(filePath, FileMode.Create))
+            {
+                newstudent.UploadPhoto.CopyTo(fileStream);
+            }
+            newstudent.imagePath = folder + uniqueFileName;
+
+            /**if(Request.Form.Files.Count > 0) { 
+            var file = Request.Form.Files[0];
+            
+                MemoryStream ms = new MemoryStream();
+                file.CopyTo(ms);
+                newstudent.StudentProfilePhoto = ms.ToArray();
+
+                ms.Close();
+                ms.Dispose();
+            }**/
 
             _dbData.Students.Add(newstudent);
             _dbData.SaveChanges();

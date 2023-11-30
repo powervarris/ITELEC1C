@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "aYQAkzRtMEU6+7OPuDzY5vF5+oktmRPB+M9xn2j4jus=",
+  "Hash": "KdMXyGgRpS+8LMJ10jbdhAcLFSuFWU+3pYtY0B74Sn0=",
   "Source": "TanITELEC1C",
   "BasePath": "_content/TanITELEC1C",
   "Mode": "Default",
@@ -2089,6 +2089,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\lib\\jquery-validation-unobtrusive\\LICENSE.txt"
+    },
+    {
+      "Identity": "C:\\Users\\Varris\\source\\repos\\TanITELEC1C\\TanITELEC1C\\wwwroot\\students\\images\\24b4ee04-6fac-43a9-a21e-1121c71c23d4_84ze6mgvmii71.png",
+      "SourceId": "TanITELEC1C",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Varris\\source\\repos\\TanITELEC1C\\TanITELEC1C\\wwwroot\\",
+      "BasePath": "_content/TanITELEC1C",
+      "RelativePath": "students/images/24b4ee04-6fac-43a9-a21e-1121c71c23d4_84ze6mgvmii71.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\students\\images\\24b4ee04-6fac-43a9-a21e-1121c71c23d4_84ze6mgvmii71.png"
     }
   ]
 }

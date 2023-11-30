@@ -245,6 +245,10 @@
       "PackagePath": "staticwebassets\\lib\\jquery\\dist\\jquery.min.map"
     },
     {
+      "Id": "C:\\Users\\Varris\\source\\repos\\TanITELEC1C\\TanITELEC1C\\wwwroot\\students\\images\\24b4ee04-6fac-43a9-a21e-1121c71c23d4_84ze6mgvmii71.png",
+      "PackagePath": "staticwebassets\\students\\images\\24b4ee04-6fac-43a9-a21e-1121c71c23d4_84ze6mgvmii71.png"
+    },
+    {
       "Id": "obj\\Debug\\net7.0\\staticwebassets\\msbuild.TanITELEC1C.Microsoft.AspNetCore.StaticWebAssets.props",
       "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
     },
